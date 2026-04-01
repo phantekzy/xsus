@@ -1,3 +1,5 @@
+use std::fmt;
+
 #[derive(Debug)]
 pub enum VivecError {
     Io(std::io::Error),
@@ -8,3 +10,7 @@ pub enum VivecError {
 }
 
 impl std::error::Error for VivecError {}
+
+impl fmt::Display for VivecError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {}
+}
