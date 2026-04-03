@@ -15,3 +15,7 @@ pub struct Request {
     pub headers: HashMap<String, String>,
     pub body: Option<String>,
 }
+
+impl Request {
+    pub fn new(method: Method, url: &str) -> Self {}
+}
