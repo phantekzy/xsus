@@ -30,4 +30,5 @@ impl Request {
             body: None,
         }
     }
+    pub fn to_http_string(&self, path: &str, host: &str) -> String {}
 }
