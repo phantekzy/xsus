@@ -2,4 +2,4 @@
   <img src="xsusLogo.png" width="400" alt="Xsus Logo">
 </p>
 
-** HTTP Client Library build from scratch
+HTTP Client Library build from scratch
