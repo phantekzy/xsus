@@ -38,8 +38,11 @@ impl Request {
             Method::PUT => "PUT",
             Method::DELETE => "DELETE",
         };
-
         let mut raw = format!("{} {} HTTP/1.1\r\n", method_str, path);
         raw.push_str(&format!("Host: {}\r\n", host));
+
+        for (k, v) in &self.headers {
+            let key_low = k.to_lowercase();
+        }
     }
 }
