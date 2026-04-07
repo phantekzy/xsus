@@ -27,6 +27,9 @@ pub fn parse_response(raw: &str) -> Result<Result, XsusError> {
             if let Some((k, v)) = line.split_once(": ") {
                 headers.insert(k.to_lowercase(), v.to_string());
             }
+        } else {
+            body.push_str(line);
+            body.push('\n');
         }
     }
 }
