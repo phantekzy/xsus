@@ -9,3 +9,4 @@ It is currently in **active development** and is not yet functional for networki
 
 **Current State:**
 - [x] HTTP/1.1 Request structure and string generation.
+- [x] Robust Response Parsing (Status, Headers, and Body state-management).
