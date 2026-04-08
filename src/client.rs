@@ -7,3 +7,7 @@ pub struct Xsus {
     pub timeout: Duration,
     pub interceptors: Interceptors,
 }
+
+impl Xsus {
+    pub fn new(base_url: &str) -> Self {}
+}
