@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use crate::interceptor::Interceptors;
+use crate::{error::XsusError, interceptor::Interceptors, response::Response};
 
 pub struct Xsus {
     pub base_url: String,
@@ -15,5 +15,8 @@ impl Xsus {
             timeout: Duration::from_secs(10),
             interceptors: Interceptors::new(),
         }
+    }
+    pub fn get(&self, path: &str) -> Result<Response, XsusError> {
+        let full_url = format!("{}{}",self.base_url,path)
     }
 }
