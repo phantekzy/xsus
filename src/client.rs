@@ -24,5 +24,9 @@ impl Xsus {
     pub fn get(&self, path: &str) -> Result<Response, XsusError> {
         let full_url = format!("{}{}", self.base_url, path);
         let mut req = Request::new(Method::GET, &full_url);
+
+        for interceptor in self.interceptors.request {
+            req = interceptor(req)
+        }
     }
 }
