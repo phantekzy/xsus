@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="xsusLogo.png" width="800" alt="Xsus Logo">
+  <img src="xsusLogo.png" width="500" alt="Xsus Logo">
 </p>
 
 ## What is Xsus?
