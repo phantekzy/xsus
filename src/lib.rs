@@ -10,3 +10,4 @@ pub mod utils;
 pub use client::Xsus;
 pub use error::XsusError;
 pub use request::Method;
+pub use response::Response;
