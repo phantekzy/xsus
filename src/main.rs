@@ -1,7 +1,7 @@
 use xsus::Xsus;
 
 fn main() {
-    let mut client = Xsus::new("http://example.com");
+    let mut client = Xsus::new("http://httpbin.org/");
 
     client.interceptors.request.push(Box::new(|mut req| {
         req.headers

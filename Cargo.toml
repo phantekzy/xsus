@@ -1,12 +1,16 @@
 [package]
 name = "xsus"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Maini Lotfi <mainilotfi@gmail.com>"]
 edition = "2024"
-description = "Native HTTP client library built for high performance systems"
-license = "MIT OR Apache-2.0"
+description = "A simple and fast web tool for Rust made with zero outside libraries."
+license = "MIT"
+homepage = "https://github.com/phantekzy/xsus"
 repository = "https://github.com/phantekzy/xsus"
-keywords = ["http", "client", "native", "zero-dependency", "networking"]
-categories = ["network-programming"]
+documentation = "https://docs.rs/xsus"
+readme = "README.md"
+keywords = ["http-client", "native", "systems", "low-level", "minimalist"]
+categories = ["network-programming", "no-std", "web-programming"]
 
-[dependencies]
+[badges]
+maintenance = { status = "actively-developed" }
