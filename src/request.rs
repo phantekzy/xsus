@@ -22,7 +22,6 @@ impl Request {
         headers.insert("User-Agent".to_string(), "xsus/0.1.1".to_string());
         headers.insert("Connection".to_string(), "close".to_string());
         headers.insert("Accept".to_string(), "*/*".to_string());
-
         Self {
             method,
             url: url.to_string(),
@@ -32,25 +31,20 @@ impl Request {
     }
 
     pub fn to_http_string(&self, path: &str, host: &str) -> String {
-        let method_str = match self.method {
+        let m = match self.method {
             Method::GET => "GET",
             Method::POST => "POST",
             Method::PUT => "PUT",
             Method::DELETE => "DELETE",
         };
-
-        let mut raw = format!("{} {} HTTP/1.1\r\n", method_str, path);
-        raw.push_str(&format!("Host: {}\r\n", host));
-
+        let mut raw = format!("{} {} HTTP/1.1\r\nHost: {}\r\n", m, path, host);
         for (k, v) in &self.headers {
-            let k_low = k.to_lowercase();
-            if k_low != "host" && k_low != "content-length" {
+            if !matches!(k.to_lowercase().as_str(), "host" | "content-length") {
                 raw.push_str(&format!("{}: {}\r\n", k, v));
             }
         }
-
-        if let Some(ref body) = self.body {
-            raw.push_str(&format!("Content-Length: {}\r\n\r\n{}", body.len(), body));
+        if let Some(ref b) = self.body {
+            raw.push_str(&format!("Content-Length: {}\r\n\r\n{}", b.len(), b));
         } else {
             raw.push_str("\r\n");
         }

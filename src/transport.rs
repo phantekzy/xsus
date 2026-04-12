@@ -1,10 +1,9 @@
+use crate::{error::XsusError, request::Request, utils::parse_url};
 use std::{
     io::{Read, Write},
     net::{TcpStream, ToSocketAddrs},
     time::Duration,
 };
-
-use crate::{error::XsusError, request::Request, utils::parse_url};
 
 pub fn execute_network_call(req: &Request, timeout: Duration) -> Result<String, XsusError> {
     let url_info = parse_url(&req.url).map_err(XsusError::InvalidUrl)?;
@@ -12,7 +11,7 @@ pub fn execute_network_call(req: &Request, timeout: Duration) -> Result<String, 
 
     let socket_addrs = addr
         .to_socket_addrs()
-        .map_err(|_| XsusError::Network(format!("Could not resolve host: {}", url_info.host)))?;
+        .map_err(|_| XsusError::Network(format!("DNS failure: {}", url_info.host)))?;
 
     let mut stream = None;
     for sa in socket_addrs {
@@ -22,8 +21,7 @@ pub fn execute_network_call(req: &Request, timeout: Duration) -> Result<String, 
         }
     }
 
-    let mut stream = stream.ok_or(XsusError::Network("Failed to connect to host".into()))?;
-
+    let mut stream = stream.ok_or(XsusError::Network("Connection failed".into()))?;
     stream.set_read_timeout(Some(timeout))?;
     stream.set_write_timeout(Some(timeout))?;
 
@@ -33,6 +31,5 @@ pub fn execute_network_call(req: &Request, timeout: Duration) -> Result<String, 
 
     let mut response_text = String::new();
     stream.read_to_string(&mut response_text)?;
-
     Ok(response_text)
 }

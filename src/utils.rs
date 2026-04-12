@@ -22,18 +22,20 @@ pub fn parse_url(url: &str) -> Result<ParsedUrl, String> {
     let (host, port) = if let Some((h, p)) = host_port.split_once(':') {
         (h.to_string(), p.to_string())
     } else {
-        let default_port = match scheme {
-            "https" => "443",
-            "http" => "80",
-            _ => "80",
-        };
+        let default_port = if scheme == "https" { "443" } else { "80" };
         (host_port.to_string(), default_port.to_string())
+    };
+
+    let path = if path_query.is_empty() {
+        "/".to_string()
+    } else {
+        path_query.to_string()
     };
 
     Ok(ParsedUrl {
         scheme: scheme.to_string(),
         host,
         port,
-        path: path_query.to_string(),
+        path,
     })
 }

@@ -29,16 +29,14 @@ impl Xsus {
         let full_url = format!("{}/{}", base, sub);
 
         let mut req = Request::new(Method::GET, &full_url);
-
-        for interceptor in &self.interceptors.request {
-            req = interceptor(req);
+        for i in &self.interceptors.request {
+            req = i(req);
         }
 
-        let raw_res = execute_network_call(&req, self.timeout)?;
-        let mut res = parse_response(&raw_res)?;
-
-        for interceptor in &self.interceptors.response {
-            res = interceptor(res);
+        let raw = execute_network_call(&req, self.timeout)?;
+        let mut res = parse_response(&raw)?;
+        for i in &self.interceptors.response {
+            res = i(res);
         }
         Ok(res)
     }
