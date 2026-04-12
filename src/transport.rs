@@ -11,4 +11,6 @@ pub fn execute_network_call(req: &Request, timeout: Duration) -> Result<String, 
             .map_err(|_| XsusError::Network("Could not resolve host".into()))?,
         timeout,
     )?;
+    stream.set_read_timeout(Some(timeout))?;
+    stream.set_write_timeout(Some(timeout))?;
 }
