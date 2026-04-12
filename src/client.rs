@@ -3,8 +3,10 @@ use std::time::Duration;
 use crate::{
     error::XsusError,
     interceptor::Interceptors,
+    parser::parse_response,
     request::{Method, Request},
     response::Response,
+    transport::execute_network_call,
 };
 
 pub struct Xsus {
@@ -28,6 +30,7 @@ impl Xsus {
         for interceptor in self.interceptors.request {
             req = interceptor(req)
         }
-        // I have to create something else first
+        let raw_body = execute_network_call(&req, self.timeout)?;
+        let mut res = parse_response(&raw_body)?;
     }
 }
