@@ -19,7 +19,7 @@ pub struct Request {
 impl Request {
     pub fn new(method: Method, url: &str) -> Self {
         let mut headers = HashMap::new();
-        headers.insert("User-Agent".to_string(), "xsus".to_string());
+        headers.insert("User-Agent".to_string(), "xsus/0.1.1".to_string());
         headers.insert("Connection".to_string(), "close".to_string());
         headers.insert("Accept".to_string(), "*/*".to_string());
 
@@ -43,8 +43,8 @@ impl Request {
         raw.push_str(&format!("Host: {}\r\n", host));
 
         for (k, v) in &self.headers {
-            let key_low = k.to_lowercase();
-            if key_low != "host" && key_low != "content-length" {
+            let k_low = k.to_lowercase();
+            if k_low != "host" && k_low != "content-length" {
                 raw.push_str(&format!("{}: {}\r\n", k, v));
             }
         }
@@ -54,7 +54,6 @@ impl Request {
         } else {
             raw.push_str("\r\n");
         }
-
         raw
     }
 }
