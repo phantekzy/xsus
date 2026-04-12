@@ -1,4 +1,8 @@
-use std::{io::Write, net::TcpStream, time::Duration};
+use std::{
+    io::{Read, Write},
+    net::TcpStream,
+    time::Duration,
+};
 
 use crate::{error::XsusError, request::Request, utils::parse_url};
 
@@ -16,4 +20,9 @@ pub fn execute_network_call(req: &Request, timeout: Duration) -> Result<String, 
 
     let raw_http = req.to_http_string(&url_info.path, &url_info.host);
     stream.write_all(raw_http.as_bytes())?;
+
+    let mut response_text = String::new();
+    stream.read_to_string(&mut response_text)?;
+
+    Ok(response_text)
 }
